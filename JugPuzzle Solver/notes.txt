@@ -1,0 +1,37 @@
+Explain how the puzzle package works and how you use
+it to solve your JugPuzzle. Your explanation should convince
+us that you understand inheritance, interfaces as well as how
+the code in solve uses these to solve any puzzle which correctly
+uses the framework.
+
+My Notes: Gagandeep Bhangal
+
+When the solve method is called from JugPuzzleSolver, it looks to the solve method in the Puzzle
+class in the puzzle package. This is why you must import puzzle Puzzle into the JugPuzzleSolver
+class. Then, you add an empty previous state using the given JugPuzzle into a new object which
+references States() called "previousStates". This will be used to keep track of the previous
+move carried out by the program, that is why it is null to start with because no moves have
+been carried out yet. Next, a new object with reference to states called "nextStates" is created.
+To check if the puzzle is solved we loop through the previous states to check (in this case if 
+a previous state contains Jug 0 and Jug 1 with 4 amounts of liquid in it we return the solution
+using the printSolution method). The printSolution method recursively prints out the steps to the
+solution by recursing through the previousStates. Next the solve method calls the nextStates 
+method when trying to get the puzzle. It inputs the nextStates object into the function defined
+in JugPuzzle.java. The abstract method from Puzzle is able to be implemented in JugPuzzle because
+the class extends Puzzle (thus creating a subclass of the Puzzle class). The nextStates method
+creates an array of the possible moves that can be carried out and stores them using the MoveString
+class. The MoveString class implements Move which means it is using the interface from Move
+to create a string output message of the moves as well as store the jug you are move from and to. 
+Next, a new JugPuzzle is created to play as a copy. The copy method is then called on the new
+JugPuzzle. In this method a new JugPuzzle is created and is given 3 jugs with amounts equal
+to the current amounts (essentially creating a copy of a simulation of what is happening at the
+current state of the puzzle). You also copy over the possible moves and number of moves and return
+the copied attributes to the new JugPuzzle you called the method on. Next you simulate a move on
+this new JugPuzzle and add the newly created state using the add method in the states class 
+(this is why we import the states class from the puzzle package). This loop continues as the previous
+state is set to the new state we just created and the loop continues until either a solution is
+reached (.isPuzzleSolved returns true) or a solution is not met (nextStates is empty). Ultimately,
+using methods extended from the Puzzle class in puzzle as well as methods created in JugPuzzle
+(such as move, isPuzzleSolved()) we simulate a game and check for a solution. This in turn uses
+the new MoveString class to print out the solution using the interface implemented from the Move
+class.
